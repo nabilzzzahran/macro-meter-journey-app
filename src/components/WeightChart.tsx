@@ -63,7 +63,7 @@ const WeightChart: React.FC<WeightChartProps> = ({ entries, targetWeight }) => {
             y={targetWeight} 
             stroke="#10b981" 
             strokeDasharray="5 5"
-            label={{ value: "Target", position: "topRight" }}
+            label={{ value: "Target", position: "top" }}
           />
           <Line 
             type="monotone" 
