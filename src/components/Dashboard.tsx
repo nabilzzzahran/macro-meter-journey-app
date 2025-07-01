@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Plus, Target, TrendingUp, Calendar } from 'lucide-react';
 import { User, FoodEntry, WeightEntry, DailyProgress } from '../types/fitness';
@@ -88,6 +87,9 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onUserUpdate }) => {
   const fatsProgress = (dailyProgress.totalFats / user.dailyMacros.fats) * 100;
 
   const mealSections = ['breakfast', 'lunch', 'snacks', 'dinner'] as const;
+
+  // Calculate total price for the day
+  const totalPrice = dailyProgress.foods.reduce((sum, food) => sum + (typeof food.price === 'number' && !isNaN(food.price) ? food.price : 0), 0);
 
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
@@ -240,6 +242,9 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onUserUpdate }) => {
                       <div className="font-medium text-gray-800">{food.name}</div>
                       <div className="text-gray-600">
                         {food.quantity} serving • {food.calories} cal
+                        {typeof food.price === 'number' && !isNaN(food.price) ? (
+                          <span> • ¥{Math.round(food.price)}</span>
+                        ) : null}
                       </div>
                     </div>
                   ))}
@@ -251,6 +256,11 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onUserUpdate }) => {
               </div>
             );
           })}
+        </div>
+        {/* Total Price for the Day */}
+        <div className="mt-6 text-right">
+          <span className="text-lg font-semibold text-gray-900">Total Price: </span>
+          <span className="text-lg font-bold text-emerald-600">¥{Math.round(totalPrice)}</span>
         </div>
       </div>
 

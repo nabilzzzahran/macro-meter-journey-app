@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { X, Search, Plus } from 'lucide-react';
 import { FoodEntry } from '../types/fitness';
@@ -16,6 +15,7 @@ const FoodLogger: React.FC<FoodLoggerProps> = ({ onAddFood, onClose }) => {
     carbs: '',
     fats: '',
     quantity: '1',
+    price: '',
     meal: 'breakfast' as FoodEntry['meal']
   });
 
@@ -57,6 +57,7 @@ const FoodLogger: React.FC<FoodLoggerProps> = ({ onAddFood, onClose }) => {
     const baseProtein = parseFloat(formData.protein);
     const baseCarbs = parseFloat(formData.carbs);
     const baseFats = parseFloat(formData.fats);
+    const price = parseFloat(formData.price);
 
     onAddFood({
       name: formData.name,
@@ -65,6 +66,7 @@ const FoodLogger: React.FC<FoodLoggerProps> = ({ onAddFood, onClose }) => {
       carbs: Math.round(baseCarbs * quantity * 10) / 10,
       fats: Math.round(baseFats * quantity * 10) / 10,
       quantity,
+      price,
       meal: formData.meal
     });
   };
@@ -195,6 +197,20 @@ const FoodLogger: React.FC<FoodLoggerProps> = ({ onAddFood, onClose }) => {
                     onChange={(e) => setFormData(prev => ({ ...prev, quantity: e.target.value }))}
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                     placeholder="1"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Price ($)</label>
+                  <input
+                    type="number"
+                    required
+                    min="0"
+                    step="0.01"
+                    value={formData.price}
+                    onChange={(e) => setFormData(prev => ({ ...prev, price: e.target.value }))}
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    placeholder="e.g., 2.50"
                   />
                 </div>
 

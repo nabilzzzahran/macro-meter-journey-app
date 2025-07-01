@@ -1,4 +1,3 @@
-
 export interface User {
   id: string;
   name: string;
@@ -25,6 +24,7 @@ export interface FoodEntry {
   carbs: number;
   fats: number;
   quantity: number;
+  price: number; // price for the food entry
   meal: 'breakfast' | 'lunch' | 'snacks' | 'dinner';
   date: string; // YYYY-MM-DD format
 }
